@@ -1,0 +1,71 @@
+{% load i18n %}
+{% load bootstrap3 %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>DPRK English - Korean Dictionary</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css" integrity="sha256-rByPlHULObEjJ6XQxW/flG2r+22R5dKiAoef+aXWfik=" crossorigin="anonymous" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" integrity="sha256-KM512VNnjElC30ehFwehXjx1YCHPiQkOPmqnrWtpccM=" crossorigin="anonymous"></script>
+    <script>
+        $(function() {
+            $("#definitions").focus();
+            $("#definitions").autocomplete({
+                source: "/engkor/definitions/",
+                minLength: 2,
+                select: function () {
+                    console.log('changed');
+                    $("#definition").load("/engkor/definitions/" + this.value);
+                    return false;
+                }
+            });
+            $(".word-btn").click(function () {
+                $("#definition").load("/engkor/definitions/" + this.name);
+            });
+        });
+    </script>
+    <style>
+        #definitions {
+            width: 100%;
+        }
+        #definition {
+            border: 1px solid lightgrey;
+            font-size: 17px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>DPRK English - Korean Dictionary</h1>
+    <p>The database of this page has been extracted from a North Korean dictionary app that is pre-installed on Woolim/Ullim tablet PCs.</p>
+    <div class="panel panel-default">
+        <div class="panel-heading"><b>Search</b></div>
+        <div class="panel-body">
+            <div class="form-group">
+                <input type="text" class="form-control" id="definitions">
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-4">
+            <div class="btn-group-vertical" style="width: 100%">
+                {% for definition in lines %}
+                    <button type="button" class="btn btn-default word-btn" name="{{ definition.id }}">{{ definition.word }}</button>
+                {% endfor %}
+            </div>
+            {% bootstrap_pagination lines url="/engkor/?page=1" size="small" %}
+        </div>
+        <div class="col-sm-8">
+            <pre id="definition">
+
+            </pre>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
