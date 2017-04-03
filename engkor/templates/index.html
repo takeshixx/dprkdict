@@ -14,16 +14,15 @@
         $(function() {
             $("#definitions").focus();
             $("#definitions").autocomplete({
-                source: "/engkor/definitions/",
+                source: "/engdprk/definitions/",
                 minLength: 2,
-                select: function () {
-                    console.log('changed');
-                    $("#definition").load("/engkor/definitions/" + this.value);
+                select: function (e, u) {
+                    $("#definition").load("/engdprk/definitions/" + encodeURIComponent(u.item.value));
                     return false;
                 }
             });
             $(".word-btn").click(function () {
-                $("#definition").load("/engkor/definitions/" + this.name);
+                $("#definition").load("/engdprk/definitions/" + encodeURIComponent(this.name));
             });
         });
     </script>
@@ -35,12 +34,19 @@
             border: 1px solid lightgrey;
             font-size: 17px;
         }
+        pre {
+            white-space: pre-wrap;
+            white-space: -moz-pre-wrap;
+            white-space: -pre-wrap;
+            white-space: -o-pre-wrap;
+            word-wrap: break-word;
+        }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <h1>DPRK English - Korean Dictionary</h1>
+    <h1>DPRK English - DPRK Dictionary</h1>
     <p>The database of this page has been extracted from a North Korean dictionary app that is pre-installed on Woolim/Ullim tablet PCs.</p>
     <div class="panel panel-default">
         <div class="panel-heading"><b>Search</b></div>
@@ -51,15 +57,15 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-sm-4">
+        <div class="col-md-4">
             <div class="btn-group-vertical" style="width: 100%">
                 {% for definition in lines %}
                     <button type="button" class="btn btn-default word-btn" name="{{ definition.id }}">{{ definition.word }}</button>
                 {% endfor %}
             </div>
-            {% bootstrap_pagination lines url="/engkor/?page=1" size="small" %}
+            {% bootstrap_pagination lines url="/engdprk/?page=1" size="small" %}
         </div>
-        <div class="col-sm-8">
+        <div class="col-md-8">
             <pre id="definition">
 
             </pre>
