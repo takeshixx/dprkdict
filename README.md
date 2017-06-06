@@ -1,5 +1,5 @@
 # dprkdict
-A web-based viewer for North Korean dictionary files provided by the E-C-K app built with [Django](https://www.djangoproject.com/).
+A web-based viewer for North Korean dictionary files provided by the E-C-K app.
 
 ## English - DPRK Dictionary
 
@@ -7,7 +7,19 @@ The dictionary that contains the word definitions has been extracted from a dict
 
 # Usage
 
-It is recommended to use virtualenv to create a environment:
+It is recommended to run the app via Docker (docker-compose required). Just run the following command in this directory:
+    
+```bash
+docker-compose up
+```
+
+The server will bind to TCP port 8000 on localhost:
+
+```
+http://localhost:8000/engdprk
+```
+
+If Docker is not available, it can be used as follows:
 
 ```bash
 virtualenv env
@@ -15,8 +27,3 @@ env/bin/pip install -r requirements.txt
 env/bin/python manage.py runserver
 ```
 
-The server will bind to TCP port 8000 on localhost:
-
-```
-http://localhost:8000/engkor
-```
