@@ -1,4 +1,4 @@
-FROM python:3.6-alpine
+FROM python:alpine
 ENV PYTHONUNBUFFERED 1
 RUN mkdir -p /srv/dprkdict
 WORKDIR /srv/dprkdict/
